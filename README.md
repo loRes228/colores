@@ -6,7 +6,7 @@ curl -o /usr/local/bin/colores https://raw.githubusercontent.com/loRes228/colore
 
 * ### Wget
 ```bash
-curl -O /usr/local/bin/colores https://raw.githubusercontent.com/loRes228/colores/main/colores && chmod +x /usr/local/bin/colores
+wget -O /usr/local/bin/colores https://raw.githubusercontent.com/loRes228/colores/main/colores && chmod +x /usr/local/bin/colores
 ```
 
 

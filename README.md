@@ -10,6 +10,7 @@ curl -o /usr/local/bin/colores https://raw.githubusercontent.com/loRes228/colore
 wget -O /usr/local/bin/colores https://raw.githubusercontent.com/loRes228/colores/main/colores && chmod +x /usr/local/bin/colores
 ```
 <br>
+<br>
 
 # Usage examples
 * ### Show help

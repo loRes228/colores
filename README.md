@@ -19,9 +19,11 @@ colores -help
 
 * ### Coloring text or background
 ![](https://i.imgur.com/OSKWbns.png)
+<br>
 
 * ### Change the text style
 ![](https://i.imgur.com/EkjQHf2.gif)
+<br>
 
 * ### Using markers
 ![](https://i.imgur.com/aSIZrPI.png)

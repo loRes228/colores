@@ -16,6 +16,7 @@ wget -O /usr/local/bin/colores https://raw.githubusercontent.com/loRes228/colore
 ```bash
 colores -help
 ```
+<br>
 
 * ### Coloring text or background
 ![](https://i.imgur.com/OSKWbns.png)

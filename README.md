@@ -4,11 +4,13 @@
 curl -o /usr/local/bin/colores https://raw.githubusercontent.com/loRes228/colores/main/colores && chmod +x /usr/local/bin/colores
 ```
 <br>
+
 * ### Wget
 ```bash
 wget -O /usr/local/bin/colores https://raw.githubusercontent.com/loRes228/colores/main/colores && chmod +x /usr/local/bin/colores
 ```
 <br>
+
 # Usage examples
 * ### Show help
 ```bash

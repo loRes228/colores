@@ -27,9 +27,12 @@ declare -A markers=(
     ["debug"]="\e[31mDEBUG"
 )
 
+# Get a list of available elements in a string.
 available_styles="${!styles[*]}"
-available_styles="${available_styles// /, }"
 available_markers="${!markers[*]}"
+
+# Replace ' ' with ', ' in the list of available elements.
+available_styles="${available_styles// /, }"
 available_markers="${available_markers// /, }"
 
 usage="\

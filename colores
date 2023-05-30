@@ -1,7 +1,11 @@
 #!/usr/bin/bash
 
-version="1.0.3"
+version="1.0.4"
 progname=$(basename "$0")
+
+lowercase() {
+    echo "$@" | tr "[:upper:]" "[:lower:]"
+}
 
 declare -A layers=(
     ["-fore"]="38"
@@ -101,13 +105,17 @@ while [[ $# -gt 0 ]]; do
         "-style")
             shift
 
-            while [[ $# -gt 0 && -n "${styles[$1]}" ]]; do
-                result+="${styles[$1]}"
+            style=$(lowercase "$1")
+
+            while [[ $# -gt 0 && -n "${styles[$style]}" ]]; do
+                result+="${styles[$style]}"
                 shift
             done
             ;;
         "-mark")
-            result="\e[0m ${markers[$2]} $result"
+            marker=$(lowercase "$2")
+
+            result="\e[0m ${markers[$marker]} $result"
             shift 2
             ;;
         "-reset")

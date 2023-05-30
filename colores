@@ -1,6 +1,6 @@
 #!/usr/bin/bash
 
-version="1.0.2"
+version="1.0.3"
 progname=$(basename "$0")
 
 declare -A layers=(
@@ -9,22 +9,22 @@ declare -A layers=(
 )
 
 declare -A styles=(
-    ["bold"]="1"
-    ["italic"]="3"
-    ["underline"]="4"
-    ["flashing"]="5"
-    ["inverted"]="7"
+    ["bold"]="\e[1m"
+    ["italic"]="\e[3m"
+    ["underline"]="\e[4m"
+    ["flashing"]="\e[5m"
+    ["inverted"]="\e[7m"
 )
 
 declare -A markers=(
-    ["success"]="\e[92m+"
-    ["error"]="\e[91m-"
-    ["warning"]="\e[93m!"
-    ["info"]="\e[32m*"
-    ["question"]="\e[96m?"
-    ["on"]="\e[92mON"
-    ["off"]="\e[91mOFF"
-    ["debug"]="\e[31mDEBUG"
+    ["success"]="[\e[92m+\e[0m]"
+    ["error"]="[\e[91m-\e[0m]"
+    ["warning"]="[\e[93m!\e[0m]"
+    ["info"]="[\e[32m*\e[0m]"
+    ["question"]="[\e[96m?\e[0m]"
+    ["on"]="[\e[92mON\e[0m]"
+    ["off"]="[\e[91mOFF\e[0m]"
+    ["debug"]="[\e[31mDEBUG\e[0m]"
 )
 
 usage="\
@@ -52,16 +52,16 @@ Options:
     Output this help message.
 
 Available color palettes:
-  RGB format: <\e[38;2;250;0;0mR\e[0m> <\e[38;2;0;255;0mG\e[0m> <\e[38;2;0;0;255mB\e[0m>
-  HEX format: <\e[38;2;0;200;255mHEX\e[0m>
-  ANSI format: <\e[38;5;215mANSI\e[0m>
+  RGB format: <\e[38;2;250;0;0mR\e[0m> <\e[38;2;0;255;0mG\e[0m> <\e[38;2;0;0;255mB\e[0m>, Example: \e[38;2;160;0;255m160 0 255\e[0m
+  HEX format: <\e[38;2;0;200;255mHEX\e[0m>, Example: \e[38;2;0;200;255m00c8ff\e[0m
+  ANSI format: <\e[38;5;215mANSI\e[0m>, Example: \e[38;5;215m215\e[0m
 
 Available styles:
-  \e[1mbold\e[0m, \e[3mitalic\e[0m, \e[4munderline\e[0m, \e[5mflashing\e[0m, \e[7minverted\e[0m
+  ${styles[bold]}bold\e[0m | ${styles[italic]}italic\e[0m | ${styles[underline]}underline\e[0m | ${styles[flashing]}flashing\e[0m | ${styles[inverted]}inverted\e[0m
 
 Available markers:
-  [\e[92m+\e[0m] success, [\e[91m-\e[0m] error, [\e[93m!\e[0m] warning, [\e[32m*\e[0m] info,
-  [\e[96m?\e[0m] question, [\e[31mDEBUG\e[0m] debug, [\e[91mOFF\e[0m] off, [\e[92mON\e[0m] on\
+  success: ${markers[success]}  error: ${markers[error]}      warning: ${markers[warning]}  question: ${markers[question]}
+  info: ${markers[info]}     debug: ${markers[debug]}  off: ${markers[off]}    on: ${markers[on]}\
 "
 
 if [[ $# -eq 0 ]]; then
@@ -102,12 +102,12 @@ while [[ $# -gt 0 ]]; do
             shift
 
             while [[ $# -gt 0 && -n "${styles[$1]}" ]]; do
-                result+="\e[${styles[$1]}m"
+                result+="${styles[$1]}"
                 shift
             done
             ;;
         "-mark")
-            result="\e[0m [${markers[$2]}\e[0m] $result"
+            result="\e[0m ${markers[$2]} $result"
             shift 2
             ;;
         "-reset")

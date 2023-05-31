@@ -98,12 +98,14 @@ while [[ $# -gt 0 ]]; do
                 color="5;$ansi"
                 shifts=2
             else
+                no_color="true"
                 shifts=1
             fi
 
-            echo $shifts
+            if [[ "$no_color" != "true" ]]; then
+                result+="\e[${layers[$1]};${color}m"
+            fi
 
-            result+="\e[${layers[$1]};${color}m"
             shift $shifts
             ;;
         "-style")

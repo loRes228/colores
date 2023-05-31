@@ -111,14 +111,14 @@ while [[ $# -gt 0 ]]; do
         "-style")
             shift
 
-            if [[ -n "$1" ]]; then
-                style="${styles[$(lowercase "$1")]}"
+            for style in "$@"; do
+                style="${styles[$(lowercase "$style")]}"
 
-                while [[ $# -gt 0 && -n "$style" ]]; do
+                if [[ -n "$style" ]]; then
                     result+="$style"
                     shift
-                done
-            fi
+                fi
+            done
             ;;
         "-mark")
             shift
@@ -146,4 +146,6 @@ while [[ $# -gt 0 ]]; do
     esac
 done
 
-echo -e "$result"
+if [[ -n "$result" ]]; then
+    echo -e "$result"
+fi

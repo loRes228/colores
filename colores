@@ -119,7 +119,7 @@ while [[ $# -gt 0 ]]; do
         "-mark")
             shift
 
-            marker=${markers[$(lowercase "$1")]}
+            marker="${markers[$(lowercase "$1")]}"
 
             if [[ -n "$marker" ]]; then
                 result="\e[0m $marker $result"

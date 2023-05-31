@@ -1,6 +1,6 @@
 #!/usr/bin/bash
 
-version="1.0.5"
+version="1.0.6"
 progname=$(basename "$0")
 
 lowercase() {
@@ -111,21 +111,25 @@ while [[ $# -gt 0 ]]; do
         "-style")
             shift
 
-            style="${styles[$(lowercase "$1")]}"
+            if [[ -n "$1" ]]; then
+                style="${styles[$(lowercase "$1")]}"
 
-            while [[ $# -gt 0 && -n "$style" ]]; do
-                result+="$style"
-                shift
-            done
+                while [[ $# -gt 0 && -n "$style" ]]; do
+                    result+="$style"
+                    shift
+                done
+            fi
             ;;
         "-mark")
             shift
 
-            marker="${markers[$(lowercase "$1")]}"
+            if [[ -n "$1" ]]; then
+                marker="${markers[$(lowercase "$1")]}"
 
-            if [[ -n "$marker" ]]; then
-                result="\e[0m $marker $result"
-                shift
+                if [[ -n "$marker" ]]; then
+                    result="\e[0m $marker $result"
+                    shift
+                fi
             fi
             ;;
         "-reset")

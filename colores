@@ -1,6 +1,6 @@
 #!/usr/bin/bash
 
-version="1.0.4"
+version="1.0.5"
 progname=$(basename "$0")
 
 lowercase() {
@@ -97,7 +97,11 @@ while [[ $# -gt 0 ]]; do
 
                 color="5;$ansi"
                 shifts=2
+            else
+                shifts=1
             fi
+
+            echo $shifts
 
             result+="\e[${layers[$1]};${color}m"
             shift $shifts
@@ -105,18 +109,22 @@ while [[ $# -gt 0 ]]; do
         "-style")
             shift
 
-            style=$(lowercase "$1")
+            style="${styles[$(lowercase "$1")]}"
 
-            while [[ $# -gt 0 && -n "${styles[$style]}" ]]; do
-                result+="${styles[$style]}"
+            while [[ $# -gt 0 && -n "$style" ]]; do
+                result+="$style"
                 shift
             done
             ;;
         "-mark")
-            marker=$(lowercase "$2")
+            shift
 
-            result="\e[0m ${markers[$marker]} $result"
-            shift 2
+            marker=${markers[$(lowercase "$1")]}
+
+            if [[ -n "$marker" ]]; then
+                result="\e[0m $marker $result"
+                shift
+            fi
             ;;
         "-reset")
             result="\e[0m"

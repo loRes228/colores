@@ -57,7 +57,7 @@ Options:
 
 Available color palettes:
   RGB format: <\e[38;2;250;0;0mR\e[0m> <\e[38;2;0;255;0mG\e[0m> <\e[38;2;0;0;255mB\e[0m>, Example: \e[38;2;160;0;255m160 0 255\e[0m
-  HEX format: <\e[38;2;0;200;255mHEX\e[0m>, Example: \e[38;2;0;200;255m00c8ff\e[0m
+  HEX format: <\e[38;2;0;200;255mHEX\e[0m>, Example: \e[38;2;0;200;255m00C8FF\e[0m
   ANSI format: <\e[38;5;215mANSI\e[0m>, Example: \e[38;5;215m215\e[0m
 
 Available styles:

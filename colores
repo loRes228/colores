@@ -75,7 +75,8 @@ get_color() {
     return 0
 }
 
-usage="\
+usage() {
+    echo -e "\
 $appname v$version - Script for customizing text appearance.
 
 Usage: $appname [options] [arguments]
@@ -129,11 +130,14 @@ Available markers:
   warning: ${status_markers[warning]}\
   error: ${status_markers[error]}\
   debug: ${status_markers[debug]}\
-  off: ${status_markers[off]}\
+  off: ${status_markers[off]}
 "
 
+    exit 0
+}
+
 if [ $# -eq 0 ]; then
-    output="$usage"
+    usage
 fi
 
 while [ $# -gt 0 ]; do
@@ -190,8 +194,7 @@ while [ $# -gt 0 ]; do
             break
             ;;
         "-help")
-            output="$usage"
-            break
+            usage
             ;;
         *)
             shift

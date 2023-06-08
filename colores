@@ -1,6 +1,6 @@
 #!/usr/bin/bash
 
-version="1.1.0"
+version="1.1.1"
 appname=$(basename "$0")
 
 declare -A color_layers=(
@@ -109,6 +109,10 @@ Available markers:
 
     exit 0
 }
+
+if [ $# -eq 0 ]; then
+    usage
+fi
 
 while [ $# -gt 0 ]; do
     case "$1" in

@@ -203,7 +203,7 @@ while [ $# -gt 0 ]; do
 done
 
 if [ -n "$output" ]; then
-    echo -e "$output"
+    echo -E "$output"
     exit 0
 else
     exit 1

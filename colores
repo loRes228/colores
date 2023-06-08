@@ -103,8 +103,8 @@ Available styles:
   ${text_styles[bold]}bold\e[0m | ${text_styles[italic]}italic\e[0m | ${text_styles[underline]}underline\e[0m | ${text_styles[flashing]}flashing\e[0m | ${text_styles[inverted]}inverted\e[0m
 
 Available markers:
-  success: ${status_markers[success]}  error: ${status_markers[error]}      warning: ${status_markers[warning]}   on: ${status_markers[on]}
-  info: ${status_markers[info]}     debug: ${status_markers[debug]}  question: ${status_markers[question]}  off: ${status_markers[off]}\
+  success: ${status_markers[success]}  info: ${status_markers[info]}   question: ${status_markers[question]}   on: ${status_markers[on]}
+  warning: ${status_markers[warning]}  error: ${status_markers[error]}  debug: ${status_markers[debug]}  off: ${status_markers[off]}\
 "
 
     exit 0

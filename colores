@@ -1,6 +1,6 @@
 #!/usr/bin/bash
 
-version="1.1.2"
+version="1.1.3"
 appname=$(basename "$0")
 
 declare -A color_layers=(
@@ -75,8 +75,7 @@ get_color() {
     return 0
 }
 
-usage() {
-    echo -e "\
+usage="\
 $appname v$version - Script for customizing text appearance.
 
 Usage: $appname [options] [arguments]
@@ -133,11 +132,8 @@ Available markers:
   off: ${status_markers[off]}\
 "
 
-    exit 0
-}
-
 if [ $# -eq 0 ]; then
-    usage
+    output="$usage"
 fi
 
 while [ $# -gt 0 ]; do
@@ -194,7 +190,8 @@ while [ $# -gt 0 ]; do
             break
             ;;
         "-help")
-            usage
+            output="$usage"
+            break
             ;;
         *)
             shift
@@ -203,7 +200,7 @@ while [ $# -gt 0 ]; do
 done
 
 if [ -n "$output" ]; then
-    echo -E "$output"
+    echo -e "$output"
     exit 0
 else
     exit 1

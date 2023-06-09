@@ -101,19 +101,11 @@ Options:
     Output this help message.
 
 Available color palettes:
-  RGB format: \
-<$(get_color "255 0 0" "fore")R\e[0m> \
-<$(get_color "0 255 0" "fore")G\e[0m> \
-<$(get_color "0 0 255" "fore")B\e[0m>, \
-Example: $(get_color "160 0 255" "fore")160 0 255\e[0m\
+  RGB format: $(get_color "160 0 255" "fore")160 0 255\e[0m\
 
-  HEX format: \
-<$(get_color "00C8FF" "fore")HEX\e[0m>, \
-Example: $(get_color "00C8FF" "fore")00C8FF\e[0m\
+  HEX format: $(get_color "00C8FF" "fore")00C8FF\e[0m\
 
-  ANSI format: \
-<$(get_color "215" "fore")ANSI\e[0m>, \
-Example: $(get_color "215" "fore")215\e[0m
+  ANSI format: $(get_color 215 "fore")215\e[0m
 
 Available styles:
   ${text_styles[bold]}bold\e[0m |\

@@ -51,6 +51,8 @@ get_color() {
 
     local layer="${color_layers[$2]}"
 
+    local result_color
+
     if [[ $color_len -eq 3 &&
           $(is_valid_color ${color[0]}) -eq 1 &&
           $(is_valid_color ${color[1]}) -eq 1 &&
@@ -59,7 +61,7 @@ get_color() {
         local g=${color[1]}
         local b=${color[2]}
 
-        echo -E "\e[${layer};2;${r};${g};${b}m"
+        result_color="\e[${layer};2;${r};${g};${b}m"
     elif [[ $color_len -eq 1 && "${color[0]}" =~ ^[0-9A-Fa-f]{6}$ ]]; then # HEX: 0-9|a-f|A-F
         local hex="${color[0]}"
 
@@ -67,16 +69,16 @@ get_color() {
         local g=$(( 16#${hex:2:2} ))
         local b=$(( 16#${hex:4:2} ))
 
-        echo -E "\e[${layer};2;${r};${g};${b}m"
+        result_color="\e[${layer};2;${r};${g};${b}m"
     elif [[ $color_len -eq 1 && $(is_valid_color ${color[0]}) -eq 1 ]]; then # ANSI: 0-255
         local ansi=${color[0]}
 
-        echo -E "\e[${layer};5;${ansi}m"
-    else
-        return 1
+        result_color="\e[${layer};5;${ansi}m"
     fi
 
-    return 0
+    if [ -n "$result_color" ]; then
+        echo -E "$result_color"
+    fi
 }
 
 usage() {

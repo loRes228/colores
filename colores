@@ -1,6 +1,6 @@
 #!/usr/bin/bash
 
-version="1.1.4"
+version="1.1.5"
 appname=$(basename "$0")
 
 declare -A color_layers=(
@@ -61,7 +61,7 @@ get_color() {
         local g=${color[1]}
         local b=${color[2]}
 
-        result="\e[${layer};2;${r};${g};${b}m"
+        result="2;${r};${g};${b}"
     elif [[ $color_len -eq 1 && "${color[0]}" =~ ^[0-9A-Fa-f]{6}$ ]]; then # HEX: 0-9|a-f|A-F
         local hex="${color[0]}"
 
@@ -69,12 +69,32 @@ get_color() {
         local g=$(( 16#${hex:2:2} ))
         local b=$(( 16#${hex:4:2} ))
 
-        result="\e[${layer};2;${r};${g};${b}m"
+        result="2;${r};${g};${b}"
     elif [[ $color_len -eq 1 && $(is_valid_color ${color[0]}) -eq 1 ]]; then # ANSI: 0-255
         local ansi=${color[0]}
 
-        result="\e[${layer};5;${ansi}m"
+        result="5;${ansi}"
     fi
+
+    if [ -n "$result" ]; then
+        echo -E "\e[${layer};${result}m"
+    fi
+}
+
+get_style() {
+    local style=$(lowercase "$1")
+
+    local result="${text_styles[$style]}"
+
+    if [ -n "$result" ]; then
+        echo -E "$result"
+    fi
+}
+
+get_marker() {
+    local marker=$(lowercase "$1")
+
+    local result="${status_markers[$marker]}"
 
     if [ -n "$result" ]; then
         echo -E "$result"
@@ -112,21 +132,21 @@ Available color palettes:
   ANSI format: $(get_color 215 "fore")215\e[0m
 
 Available styles:
-  ${text_styles[bold]}bold\e[0m |\
- ${text_styles[italic]}italic\e[0m |\
- ${text_styles[underline]}underline\e[0m |\
- ${text_styles[flashing]}flashing\e[0m |\
- ${text_styles[inverted]}inverted\e[0m
+  $(get_style "bold")bold\e[0m |\
+ $(get_style "italic")italic\e[0m |\
+ $(get_style "underline")underline\e[0m |\
+ $(get_style "flashing")flashing\e[0m |\
+ $(get_style "inverted")inverted\e[0m
 
 Available markers:
-  success: ${status_markers[success]}\
-  info: ${status_markers[info]} \
-  question: ${status_markers[question]} \
-  on: ${status_markers[on]}
-  warning: ${status_markers[warning]}\
-  error: ${status_markers[error]}\
-  debug: ${status_markers[debug]}\
-  off: ${status_markers[off]}\
+  success: $(get_marker "success")\
+  info: $(get_marker "info") \
+  question: $(get_marker "question") \
+  on: $(get_marker "on")
+  warning: $(get_marker "warning")\
+  error: $(get_marker "error")\
+  debug: $(get_marker "debug")\
+  off: $(get_marker "off")\
 "
 
     exit 0
@@ -160,7 +180,7 @@ while [ $# -gt 0 ]; do
             styles="${args[@]:1}"
 
             for style in $styles; do
-                result_style="${text_styles[$(lowercase $style)]}"
+                result_style=$(get_style "$style")
 
                 if [ -n "$result_style" ]; then
                     output+="$result_style"
@@ -176,7 +196,7 @@ while [ $# -gt 0 ]; do
             marker="${args[1]}"
 
             if [ -n "$marker" ]; then
-                result_marker="${status_markers[$(lowercase $marker)]}"
+                result_marker=$(get_marker "$marker")
             fi
 
             if [ -n "$result_marker" ]; then

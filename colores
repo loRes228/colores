@@ -1,6 +1,6 @@
 #!/usr/bin/bash
 
-version="1.1.5"
+version="1.1.6"
 appname=$(basename "$0")
 
 declare -A color_layers=(
@@ -84,7 +84,9 @@ get_color() {
 get_style() {
     local style=$(lowercase "$1")
 
-    local result="${text_styles[$style]}"
+    if [ -n "$style" ]; then
+        local result="${text_styles[$style]}"
+    fi
 
     if [ -n "$result" ]; then
         echo -E "$result"
@@ -94,7 +96,9 @@ get_style() {
 get_marker() {
     local marker=$(lowercase "$1")
 
-    local result="${status_markers[$marker]}"
+    if [ -n "$marker" ]; then
+        local result="${status_markers[$marker]}"
+    fi
 
     if [ -n "$result" ]; then
         echo -E "$result"
@@ -195,9 +199,7 @@ while [ $# -gt 0 ]; do
 
             marker="${args[1]}"
 
-            if [ -n "$marker" ]; then
-                result_marker=$(get_marker "$marker")
-            fi
+            result_marker=$(get_marker "$marker")
 
             if [ -n "$result_marker" ]; then
                 output="\e[0m $result_marker $output"

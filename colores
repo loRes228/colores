@@ -1,6 +1,6 @@
 #!/usr/bin/bash
 
-version="1.1.6"
+version="1.1.7"
 appname=$(basename "$0")
 
 declare -A color_layers=(
@@ -61,7 +61,7 @@ get_color() {
         local g=${color[1]}
         local b=${color[2]}
 
-        result="2;${r};${g};${b}"
+        result="2;$r;$g;$b"
     elif [[ $color_len -eq 1 && "${color[0]}" =~ ^[0-9A-Fa-f]{6}$ ]]; then # HEX: 0-9|a-f|A-F
         local hex="${color[0]}"
 
@@ -69,15 +69,17 @@ get_color() {
         local g=$(( 16#${hex:2:2} ))
         local b=$(( 16#${hex:4:2} ))
 
-        result="2;${r};${g};${b}"
+        result="2;$r;$g;$b"
     elif [[ $color_len -eq 1 && $(is_valid_color ${color[0]}) -eq 1 ]]; then # ANSI: 0-255
         local ansi=${color[0]}
 
-        result="5;${ansi}"
+        result="5;$ansi"
     fi
 
     if [ -n "$result" ]; then
-        echo -E "\e[${layer};${result}m"
+        result="\e[${layer};${result}m"
+
+        echo -E "$result"
     fi
 }
 
@@ -163,11 +165,11 @@ fi
 while [ $# -gt 0 ]; do
     case "$1" in
         "-fore" | "-back")
-            args=($(get_args "$*"))
+            args=($(get_args "$*")) # -fore 255 0 170 -back FF00AA -style italic... > '-fore 255 0 170'
             args_len=${#args[@]}
 
-            layer="${args[0]:1}"
-            color="${args[*]:1}"
+            layer="${args[0]:1}" # -fore 255 0 170 > 'fore'
+            color="${args[*]:1}" # -fore 255 0 170 > '255 0 170'
 
             result_color=$(get_color "$color" "$layer")
 
@@ -178,10 +180,10 @@ while [ $# -gt 0 ]; do
             shift $args_len
             ;;
         "-style")
-            args=($(get_args "$*"))
+            args=($(get_args "$*")) # -style italic flashing -fore FF00AA... > '-style italic flashing'
             args_len=${#args[@]}
 
-            styles="${args[@]:1}"
+            styles="${args[@]:1}" # -style italic flashing > 'italic flashing'
 
             for style in $styles; do
                 result_style=$(get_style "$style")
@@ -194,10 +196,10 @@ while [ $# -gt 0 ]; do
             shift $args_len
             ;;
         "-mark")
-            args=($(get_args "$*"))
+            args=($(get_args "$*")) # -mark success 'no_valid_marker' -back 255 0 170... > '-mark success no_valid_marker'
             args_len=${#args[@]}
 
-            marker="${args[1]}"
+            marker="${args[1]}" # -mark success no_valid_marker > 'success'
 
             result_marker=$(get_marker "$marker")
 

@@ -1,6 +1,6 @@
 #!/usr/bin/bash
 
-version="1.1.7"
+version="1.2.0"
 appname=$(basename "$0")
 
 declare -A color_layers=(
@@ -27,36 +27,39 @@ declare -A status_markers=(
     ["debug"]="[\e[31mDEBUG\e[0m]"
 )
 
-lowercase() {
-    local text="$1"
-
-    echo "$text" | tr "[:upper:]" "[:lower:]"
-}
-
 get_args() {
     local args="$1"
 
     echo -E "${args%% -*}"
 }
 
+lowercase() {
+    local text="$1"
+
+    echo "$text" | tr "[:upper:]" "[:lower:]"
+}
+
+ # Value: 0-255
 is_valid_color() {
     local color=$1
 
     [[ $color =~ ^[0-9]{1,3}$ && $color -ge 0 && $color -le 255 ]] && echo 1
 }
 
+# '0-255 0-255 0-255' or '0-9|a-f|A-F' or '0-255' to Escape-code
 get_color() {
     local color=($1)
     local color_len=${#color[@]}
 
-    local layer="${color_layers[$2]}"
+    local layer="${2:-fore}" # "fore" if layer is not specified
+    layer="${color_layers[$layer]}" # foreground / background
 
     local result
 
     if [[ $color_len -eq 3 &&
           $(is_valid_color ${color[0]}) -eq 1 &&
           $(is_valid_color ${color[1]}) -eq 1 &&
-          $(is_valid_color ${color[2]}) -eq 1 ]]; then # RGB: 0-255, 0-255, 0-255
+          $(is_valid_color ${color[2]}) -eq 1 ]]; then # RGB: 0-255 0-255 0-255
         local r=${color[0]}
         local g=${color[1]}
         local b=${color[2]}
@@ -98,8 +101,19 @@ get_style() {
 get_marker() {
     local marker=$(lowercase "$1")
 
-    if [ -n "$marker" ]; then
-        local result="${status_markers[$marker]}"
+    local result
+
+    if [ "$marker" = "custom" ]; then
+        local text="$2"
+
+        if [ -n "$text" ]; then
+            local color="${@:3}"
+            color=$(get_color "$color")
+
+            result="[${color}${text}\e[0m]"
+        fi
+    elif [ -n "$marker" ]; then
+        result="${status_markers[$marker]}"
     fi
 
     if [ -n "$result" ]; then
@@ -133,9 +147,9 @@ Options:
     Output this help message.
 
 Available color palettes:
-  RGB format: $(get_color "160 0 255" "fore")160 0 255\e[0m
-  HEX format: $(get_color "00C8FF" "fore")00C8FF\e[0m
-  ANSI format: $(get_color 215 "fore")215\e[0m
+  RGB format: $(get_color "160 0 255")160 0 255\e[0m
+  HEX format: $(get_color "00C8FF")00C8FF\e[0m
+  ANSI format: $(get_color 215)215\e[0m
 
 Available styles:
   $(get_style "bold")bold\e[0m |\
@@ -196,12 +210,12 @@ while [ $# -gt 0 ]; do
             shift $args_len
             ;;
         "-mark")
-            args=($(get_args "$*")) # -mark success 'no_valid_marker' -back 255 0 170... > '-mark success no_valid_marker'
+            args=($(get_args "$*")) # -mark success... -back 255 0 170... > '-mark success...'
             args_len=${#args[@]}
 
-            marker="${args[1]}" # -mark success no_valid_marker > 'success'
+            marker="${args[@]:1}" # -mark success... > 'success'
 
-            result_marker=$(get_marker "$marker")
+            result_marker=$(get_marker $marker)
 
             if [ -n "$result_marker" ]; then
                 output="\e[0m $result_marker $output"

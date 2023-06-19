@@ -26,7 +26,7 @@ echo -e "$(colores -fore 0 255 0)Green text using RGB color.$(colores -reset)"
 echo -e "$(colores -back ff0000)Red background using HEX color.$(colores -reset)"
 echo -e "$(colores -fore 200 -back 20)Purple text and blue background using ANSI color.$(colores -reset)"
 ```
-![](https://i.imgur.com/OtFzFKe.png)
+![](https://i.imgur.com/OSq0GDD.png)
 <br><br>
 
 * ### Change the text style
@@ -38,7 +38,7 @@ echo -e "$(colores -style inverted)Inverted text$(colores -reset)"
 echo -e "$(colores -style flashing)Flashing text$(colores -reset)"
 echo -e "$(colores -style bold italic underline inverted flashing)All styles$(colores -reset)"
 ```
-![](https://i.imgur.com/zh0mvgK.gif)
+![](https://i.imgur.com/7dtpUZR.gif)
 <br><br>
 
 * ### Using markers
@@ -48,11 +48,11 @@ echo -e "$(colores -mark error)Command failed to execute."
 echo -e "$(colores -mark warning)Proceed with caution."
 echo -e "$(colores -mark info)Additional information provided."
 echo -e "$(colores -mark question)Requesting user input."
-echo -e "$(colores -mark question)Debugging information."
+echo -e "$(colores -mark debug)Debugging information."
 echo -e "$(colores -mark on)Command enabled."
 echo -e "$(colores -mark off)Command disabled."
 echo -e "$(colores -mark custom 'TEXT' 160 0 255)Custom marker using RGB color."
 echo -e "$(colores -mark custom 'TEXT' 00C8FF)Custom marker using HEX color."
 echo -e "$(colores -mark custom 'TEXT' 215)Custom marker using ANSI color."
 ```
-![](https://i.imgur.com/aexvSKq.png)
+![](https://i.imgur.com/l9PVrU6.png)

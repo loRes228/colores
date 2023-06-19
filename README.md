@@ -54,4 +54,3 @@ echo -e "$(colores -mark custom 'TEXT' 00C8FF)Custom marker using HEX color."
 echo -e "$(colores -mark custom 'TEXT' 215)Custom marker using ANSI color."
 ```
 ![](https://i.imgur.com/aexvSKq.png)
-##

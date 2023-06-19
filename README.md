@@ -20,14 +20,14 @@ colores -help
 <br>
 
 * ### Coloring text or background
-![](https://i.imgur.com/OSKWbns.png)
+![](https://i.imgur.com/2bPBh6w.png)
 <br>
 <br>
 
 * ### Change the text style
-![](https://i.imgur.com/EkjQHf2.gif)
+![](https://i.imgur.com/BD5npp5.gif)
 <br>
 <br>
 
 * ### Using markers
-![](https://i.imgur.com/aSIZrPI.png)
+![](https://i.imgur.com/YeJfpbl.png)

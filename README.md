@@ -1,15 +1,17 @@
 # Installation
 * ### сURL
 ```bash
-curl -o /usr/local/bin/colores https://raw.githubusercontent.com/loRes228/colores/main/colores && chmod +x /usr/local/bin/colores
+curl -o /usr/local/bin/colores https://raw.githubusercontent.com/loRes228/colores/main/colores
+chmod +x /usr/local/bin/colores
 ```
 <br>
 
 * ### Wget
 ```bash
-wget -O /usr/local/bin/colores https://raw.githubusercontent.com/loRes228/colores/main/colores && chmod +x /usr/local/bin/colores
+wget -O /usr/local/bin/colores https://raw.githubusercontent.com/loRes228/colores/main/colores
+chmod +x /usr/local/bin/colores
 ```
-<br><br>
+<br>
 
 # Usage examples
 * ### Show help
@@ -19,7 +21,7 @@ colores -help
 <br>
 
 * ### Coloring text or background
-```bash
+```bash          
 echo -e "$(colores -fore 0 255 0)Green text using RGB color.$(colores -reset)"
 echo -e "$(colores -back ff0000)Red background using HEX color.$(colores -reset)"
 echo -e "$(colores -fore 200 -back 20)Purple text and blue background using ANSI color.$(colores -reset)"

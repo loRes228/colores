@@ -26,6 +26,7 @@ echo -e "$(colores -back ff0000)Red background using HEX color.$(colores -reset)
 echo -e "$(colores -fore 200 -back 20)Purple text and blue background using ANSI color.$(colores -reset)"
 ```
 <br>
+
 ![](https://i.imgur.com/2bPBh6w.png)
 <br>
 <br>
@@ -40,6 +41,7 @@ echo -e "$(colores -style flashing)Flashing text$(colores -reset)"
 echo -e "$(colores -style bold italic underline inverted flashing)All styles$(colores -reset)"
 ```
 <br>
+
 ![](https://i.imgur.com/BD5npp5.gif)
 <br>
 <br>
@@ -59,4 +61,5 @@ echo -e "$(colores -mark custom 'TEXT' 00C8FF)Custom marker using HEX color."
 echo -e "$(colores -mark custom 'TEXT' 215)Custom marker using ANSI color."
 ```
 <br>
+
 ![](https://i.imgur.com/YeJfpbl.png)

@@ -9,8 +9,7 @@ curl -o /usr/local/bin/colores https://raw.githubusercontent.com/loRes228/colore
 ```bash
 wget -O /usr/local/bin/colores https://raw.githubusercontent.com/loRes228/colores/main/colores && chmod +x /usr/local/bin/colores
 ```
-<br>
-<br>
+<br><br>
 
 # Usage examples
 * ### Show help
@@ -25,9 +24,8 @@ echo -e "$(colores -fore 0 255 0)Green text using RGB color.$(colores -reset)"
 echo -e "$(colores -back ff0000)Red background using HEX color.$(colores -reset)"
 echo -e "$(colores -fore 200 -back 20)Purple text and blue background using ANSI color.$(colores -reset)"
 ```
-![](https://i.imgur.com/UwWrEgQ.png)
-<br>
-<br>
+![](https://i.imgur.com/OtFzFKe.png)
+<br><br>
 
 * ### Change the text style
 ```bash
@@ -38,9 +36,8 @@ echo -e "$(colores -style inverted)Inverted text$(colores -reset)"
 echo -e "$(colores -style flashing)Flashing text$(colores -reset)"
 echo -e "$(colores -style bold italic underline inverted flashing)All styles$(colores -reset)"
 ```
-![](https://i.imgur.com/sZnr9xq.gif)
-<br>
-<br>
+![](https://i.imgur.com/zh0mvgK.gif)
+<br><br>
 
 * ### Using markers
 ```bash
@@ -56,4 +53,5 @@ echo -e "$(colores -mark custom 'TEXT' 160 0 255)Custom marker using RGB color."
 echo -e "$(colores -mark custom 'TEXT' 00C8FF)Custom marker using HEX color."
 echo -e "$(colores -mark custom 'TEXT' 215)Custom marker using ANSI color."
 ```
-![](https://i.imgur.com/OEhy7TB.png)
+![](https://i.imgur.com/aexvSKq.png)
+##
